@@ -16,6 +16,7 @@ public class UnitBase : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetColor();
     }
+
     private void Start()
     {
     }
@@ -46,26 +47,18 @@ public class UnitBase : MonoBehaviour
         Vector2 spawnPosition = transform.position;
         spawnPosition.x += Random.Range(0, 2);
         spawnPosition.y += Random.Range(0, 2);
-
         unit.transform.position = spawnPosition;
+
+        unit.Init();
     }
 
     void SetColor()
     {
-        switch (team)
-        {
-            case ETeam.None:
-                spriteRenderer.color = Managers.Setting.noneColor;
-                break;
+        spriteRenderer.color = Util.GetColor(team);
+    }
 
-            case ETeam.Player:
-                spriteRenderer.color = Managers.Setting.playerColor;
-                break;
-
-            case ETeam.Enemy:
-                spriteRenderer.color = Managers.Setting.enemyColor;
-                break;
-
-        }
+    private void OnValidate()
+    {
+        GetComponent<SpriteRenderer>().color = Util.GetColor(team);
     }
 }

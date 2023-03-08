@@ -20,11 +20,11 @@ public class Weapon : MonoBehaviour
         _unit = GetComponentInParent<Unit>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Unit"))
         {
-            if (TryGetComponent(out Unit otherUnit) && 
+            if (other.TryGetComponent(out Unit otherUnit) && 
                 IsOtherTeam(_unit.team, otherUnit.team))
             {
                 enemiesInRange.Add(otherUnit);
@@ -32,11 +32,11 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Unit"))
         {
-            if (TryGetComponent(out Unit otherUnit) &&
+            if (other.TryGetComponent(out Unit otherUnit) &&
                 enemiesInRange.Contains(otherUnit))
             {
                 enemiesInRange.Remove(otherUnit);
@@ -46,24 +46,15 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        if (_attackSpeed)
-        if (enemiesInRange.Count > 0)
-        {
-            GameObject closestEnemy = FindClosestEnemy();
-
-            if (closestEnemy != null)
-            {
-                Attack(closestEnemy);
-            }
-        }
+        CheckAttackable();
     }
 
-    private GameObject FindClosestEnemy()
+    private Unit FindClosestEnemy()
     {
-        GameObject closestEnemy = null;
+        Unit closestEnemy = null;
         float closestDistance = float.MaxValue;
 
-        foreach (GameObject enemy in enemiesInRange)
+        foreach (Unit enemy in enemiesInRange)
         {
             float distance = Vector3.Distance(transform.position, enemy.transform.position);
 
@@ -77,13 +68,34 @@ public class Weapon : MonoBehaviour
         return closestEnemy;
     }
 
-    private void Attack(GameObject enemy)
+    private void CheckAttackable()
     {
-        // 가장 가까운 적 공격 처리
+        if (_curCoolTime > 0)
+        {
+            _curCoolTime -= Time.deltaTime;
+        }
+        else
+        {
+            if (enemiesInRange.Count > 0)
+            {
+                Unit closestEnemy = FindClosestEnemy();
+
+                if (closestEnemy != null)
+                {
+                    Attack(closestEnemy);
+                }
+            }
+        }
+    }
+
+    private void Attack(Unit enemy)
+    {
+        _curCoolTime += _maxCoolTime;
+        enemy.Hit(_attackPower);
     }
 
     private bool IsOtherTeam(ETeam myTeam, ETeam otherTeam)
     {
-        return myTeam == otherTeam;
+        return myTeam != otherTeam;
     }
 }

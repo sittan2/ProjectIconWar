@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class Unit : MonoBehaviour
 {
     private IObjectPool<Unit> _ManagedPool;
     public ETeam team = ETeam.None;
+    SpriteRenderer spriteRenderer;
 
     public float _maxSpeed;
     public float _curSpeed;
@@ -17,14 +19,17 @@ public class Unit : MonoBehaviour
 
     [SerializeField] Weapon _weapon;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void Init()
     {
         _moveTargetPosition = transform.position;
         _curHp = _maxHp;
+        SetColor();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButton(1))
@@ -42,9 +47,11 @@ public class Unit : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, _moveTargetPosition, _curSpeed * Time.deltaTime);
     }
 
-    void Attack()
+    public void Hit(float Damage)
     {
-
+        _curHp -= Damage;
+        if (_curHp < 0)
+            DestroyUnit();
     }
 
 
@@ -55,14 +62,14 @@ public class Unit : MonoBehaviour
 
     public void DestroyUnit()
     {
-        _ManagedPool.Release(this);
+        if (_ManagedPool == null)
+            Destroy(gameObject);
+        else
+            _ManagedPool.Release(this);
     }
 
-
-
-
-    //protected virtual IEnumerator Move()
-    //{
-
-    //}
+    void SetColor()
+    {
+        spriteRenderer.color = Util.GetColor(team);
+    }
 }

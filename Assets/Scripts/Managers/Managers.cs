@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
-    public static Managers Instance;
+    static Managers Instance;
 
-    public static SettingData Setting => Instance.GetSettingData();
+    public static SettingData Setting => GetSettingData();
     private static string SettingDataPath = "Assets/Data/SettingData.asset";
     public static GameManager Game => Instance._game;
     public static PoolManager Pool => Instance._pool;
@@ -44,12 +44,17 @@ public class Managers : MonoBehaviour
         }
     }
 
-    SettingData GetSettingData()
+    static SettingData GetSettingData()
     {
-        if (_settingData == null)
+        if (Instance == null)
+            return AssetDatabase.LoadAssetAtPath<SettingData>(SettingDataPath);
+        else
         {
-            _settingData = AssetDatabase.LoadAssetAtPath<SettingData>(SettingDataPath);
+            if (Instance._settingData == null)
+            {
+                Instance._settingData = AssetDatabase.LoadAssetAtPath<SettingData>(SettingDataPath);
+            }
+            return Instance._settingData;
         }
-        return _settingData;
     }
 }
