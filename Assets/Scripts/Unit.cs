@@ -14,8 +14,8 @@ public class Unit : MonoBehaviour
 
     public float _maxHp = 100f;
     public float _curHp;
-    public float _ap = 50f;             // Attack Power
-    public float _dp = 10f;             // Defense Power
+
+    [SerializeField] Weapon _weapon;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +27,7 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
             _moveTargetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
@@ -57,4 +57,12 @@ public class Unit : MonoBehaviour
     {
         _ManagedPool.Release(this);
     }
+
+
+
+
+    //protected virtual IEnumerator Move()
+    //{
+
+    //}
 }

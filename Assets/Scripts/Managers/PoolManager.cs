@@ -5,13 +5,19 @@ using UnityEngine.Pool;
 public class PoolManager
 {
     public IObjectPool<Unit> _UnitPool;
-    [SerializeField]
+
+    private const string unitPrefabPath = "Assets/Prefabs/Unit.prefab";
     private Unit _UnitPrefab;
 
     public void Init()
     {
-        _UnitPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<Unit>("Assets/Prefabs/Unit.prefab");
+        _UnitPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<Unit>(unitPrefabPath);
         _UnitPool = new ObjectPool<Unit>(CreateUnit, OnGetUnit, OnReleaseUnit, OnDestroyUnit);
+    }
+
+    public void Clear()
+    {
+        _UnitPool = null;
     }
 
     private Unit CreateUnit()

@@ -4,7 +4,6 @@ using UnityEngine.Pool;
 
 public class UnitBase : MonoBehaviour
 {
-    private IObjectPool<Unit> _Pool;
     public float _spawnTime = 4f;
     private float _restSpawnTime;
 

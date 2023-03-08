@@ -7,8 +7,11 @@ public class Managers : MonoBehaviour
     public static Managers Instance;
 
     public static SettingData Setting => Instance.GetSettingData();
+    private static string SettingDataPath = "Assets/Data/SettingData.asset";
+    public static GameManager Game => Instance._game;
     public static PoolManager Pool => Instance._pool;
 
+    private GameManager _game = new GameManager();
     private PoolManager _pool = new PoolManager();
     private SettingData _settingData;
 
@@ -31,7 +34,9 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(go);
             Instance = go.GetComponent<Managers>();
 
+            _game.Init();
             _pool.Init();
+            GetSettingData();
         }
         else
         {
@@ -41,7 +46,10 @@ public class Managers : MonoBehaviour
 
     SettingData GetSettingData()
     {
-        return AssetDatabase.LoadAssetAtPath<SettingData>("Assets/Data/SettingData.asset");
+        if (_settingData == null)
+        {
+            _settingData = AssetDatabase.LoadAssetAtPath<SettingData>(SettingDataPath);
+        }
+        return _settingData;
     }
-
 }
