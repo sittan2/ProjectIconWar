@@ -10,6 +10,7 @@ public class PoolManager
 
     public void Init()
     {
+        _UnitPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<Unit>("Assets/Prefabs/Unit.prefab");
         _UnitPool = new ObjectPool<Unit>(CreateUnit, OnGetUnit, OnReleaseUnit, OnDestroyUnit);
     }
 

@@ -56,15 +56,15 @@ public class UnitBase : MonoBehaviour
         switch (team)
         {
             case ETeam.None:
-                spriteRenderer.color = Managers.Instance.noneColor;
+                spriteRenderer.color = Managers.Setting.noneColor;
                 break;
 
             case ETeam.Player:
-                spriteRenderer.color = Managers.Instance.playerColor;
+                spriteRenderer.color = Managers.Setting.playerColor;
                 break;
 
             case ETeam.Enemy:
-                spriteRenderer.color = Managers.Instance.enemyColor;
+                spriteRenderer.color = Managers.Setting.enemyColor;
                 break;
 
         }

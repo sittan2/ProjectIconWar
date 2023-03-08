@@ -1,18 +1,16 @@
 ﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
     public static Managers Instance;
 
+    public static SettingData Setting => Instance.GetSettingData();
     public static PoolManager Pool => Instance._pool;
 
     private PoolManager _pool = new PoolManager();
-
-    [Header("Setting")]
-    [SerializeField] public Color playerColor;
-    [SerializeField] public Color enemyColor;
-    [SerializeField] public Color noneColor;
+    private SettingData _settingData;
 
     private void Awake()
     {
@@ -39,6 +37,11 @@ public class Managers : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    SettingData GetSettingData()
+    {
+        return AssetDatabase.LoadAssetAtPath<SettingData>("Assets/Data/SettingData.asset");
     }
 
 }
