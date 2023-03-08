@@ -8,11 +8,17 @@ public class UnitBase : MonoBehaviour
     public float _spawnTime = 4f;
     private float _restSpawnTime;
 
+
+    private SpriteRenderer spriteRenderer;
     public ETeam team = ETeam.None;
 
-    void Start()
+    private void Awake()
     {
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        SetColor();
+    }
+    private void Start()
+    {
     }
 
     void Update()
@@ -35,13 +41,32 @@ public class UnitBase : MonoBehaviour
 
     void SpawnUnit()
     {
-        Unit unit = PoolManager.Pool._UnitPool.Get();
+        Unit unit = Managers.Pool._UnitPool.Get();
         unit.team = team;
 
         Vector2 spawnPosition = transform.position;
-        spawnPosition.x += Random.Range(-1, 1);
-        spawnPosition.y += Random.Range(-1, 1);
+        spawnPosition.x += Random.Range(0, 2);
+        spawnPosition.y += Random.Range(0, 2);
 
         unit.transform.position = spawnPosition;
+    }
+
+    void SetColor()
+    {
+        switch (team)
+        {
+            case ETeam.None:
+                spriteRenderer.color = Managers.Instance.noneColor;
+                break;
+
+            case ETeam.Player:
+                spriteRenderer.color = Managers.Instance.playerColor;
+                break;
+
+            case ETeam.Enemy:
+                spriteRenderer.color = Managers.Instance.enemyColor;
+                break;
+
+        }
     }
 }

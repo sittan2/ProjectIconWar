@@ -30,7 +30,6 @@ public class Unit : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             _moveTargetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(_moveTargetPosition);
         }
 
         Move();
