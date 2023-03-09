@@ -97,9 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b035571e8aba124c904b1d87f243296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isCaptured: 0
   _maxDegreeToCapture: 100
   _curDegreeToCapture: 0
+  _captureRange: 1
   _caputureUnits: []
   _spawnTime: 2
+  _spawnBound: 1
   team: 0
