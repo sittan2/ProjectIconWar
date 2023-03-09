@@ -6,13 +6,14 @@ using UnityEngine.Pool;
 
 public class UnitBase : MonoBehaviour
 {
-    public bool _isCaptured = false;            // 점령 되었는가? -> 병력이 생산 되는가.
     public float _maxDegreeToCapture = 100f;
     public float _curDegreeToCapture = 0;
+    public float _captureRange = 1f;
     public List<Unit> _caputureUnits = new List<Unit>();
 
     public float _spawnTime = 4f;
     private float _restSpawnTime;
+    public float _spawnBound = 1f;
 
     private SpriteRenderer spriteRenderer;
     public ETeam team = ETeam.None;
@@ -21,7 +22,6 @@ public class UnitBase : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetColor();
-        _isCaptured = !(team == ETeam.None);
     }
 
     private void Start()
@@ -50,7 +50,7 @@ public class UnitBase : MonoBehaviour
 
     void CalculateCaptureDegree()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _captureRange);
         int playerCount = 0, enemyCount = 0;
 
         for (int i = 0; i < colliders.Length; i++)
@@ -79,12 +79,14 @@ public class UnitBase : MonoBehaviour
 
     void SpawnUnit()
     {
+        if (team == ETeam.None) return;
+
         Unit unit = Managers.Pool._UnitPool.Get();
         unit.team = team;
 
         Vector2 spawnPosition = transform.position;
-        spawnPosition.x += Random.Range(0, 2);
-        spawnPosition.y += Random.Range(0, 2);
+        spawnPosition.x += Random.Range(-_spawnBound, _spawnBound);
+        spawnPosition.y += Random.Range(-_spawnBound, _spawnBound);
         unit.transform.position = spawnPosition;
 
         unit.Init();
