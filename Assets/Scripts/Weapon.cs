@@ -20,11 +20,11 @@ public class Weapon : MonoBehaviour
         _unit = GetComponentInParent<Unit>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Unit"))
+        if (collision.CompareTag("Unit"))
         {
-            if (other.TryGetComponent(out Unit otherUnit) && 
+            if (collision.TryGetComponent(out Unit otherUnit) && 
                 IsOtherTeam(_unit.team, otherUnit.team))
             {
                 enemiesInRange.Add(otherUnit);
@@ -32,11 +32,11 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (other.CompareTag("Unit"))
+        if (collision.CompareTag("Unit"))
         {
-            if (other.TryGetComponent(out Unit otherUnit) &&
+            if (collision.TryGetComponent(out Unit otherUnit) &&
                 enemiesInRange.Contains(otherUnit))
             {
                 enemiesInRange.Remove(otherUnit);

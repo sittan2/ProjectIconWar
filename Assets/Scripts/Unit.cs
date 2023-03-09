@@ -43,6 +43,7 @@ public class Unit : MonoBehaviour
     void Move()
     {
         if (_moveTargetPosition == null) return;
+        if (team != ETeam.Player) return;
 
         transform.position = Vector2.MoveTowards(transform.position, _moveTargetPosition, _curSpeed * Time.deltaTime);
     }
