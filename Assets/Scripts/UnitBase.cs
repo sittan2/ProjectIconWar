@@ -94,11 +94,11 @@ public class UnitBase : MonoBehaviour
 
     void SetColor()
     {
-        spriteRenderer.color = Util.GetColor(team);
+        spriteRenderer.color = Util.GetTeamColor(team).BackColor;
     }
 
     private void OnValidate()
     {
-        GetComponent<SpriteRenderer>().color = Util.GetColor(team);
+        GetComponent<SpriteRenderer>().color = Util.GetTeamColor(team).BackColor;
     }
 }
