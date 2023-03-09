@@ -26,6 +26,12 @@ public class UnitBase : MonoBehaviour
 
     private void Start()
     {
+        SpawnUnit();
+        SpawnUnit();
+        SpawnUnit();
+        SpawnUnit();
+        SpawnUnit();
+
         _maxDegreeToCapture = _curDegreeToCapture / 2;
     }
 
@@ -37,6 +43,7 @@ public class UnitBase : MonoBehaviour
 
     void CheckSpawnTime()
     {
+        if (team == ETeam.None) return;
         if (_restSpawnTime > 0)
         {
             _restSpawnTime -= Time.deltaTime;
@@ -51,36 +58,34 @@ public class UnitBase : MonoBehaviour
     void CalculateCaptureDegree()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _captureRange);
-        int playerCount = 0, enemyCount = 0;
+        ETeam unitTeam = ETeam.None;
 
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].CompareTag("Unit") &&
                 colliders[i].TryGetComponent(out Unit unit))
             {
-                if (unit.team == ETeam.Player)
-                    playerCount += 1;
-                else if (unit.team == ETeam.Enemy1)
-                    enemyCount += 1;
+                if (unitTeam == ETeam.None)
+                {
+                    unitTeam = unit.team;
+                    continue;
+                }
+
+                if (unitTeam != unit.team)
+                {
+                    return;
+                }
             }
         }
 
-        if (playerCount > 0 && enemyCount == 0)
-        {
-            team = ETeam.Player;
-            SetColor();
-        }
-        else if (enemyCount > 0 && playerCount == 0)
-        {
-            team = ETeam.Enemy1;
-            SetColor();
-        }
+        if (unitTeam == ETeam.None) return;
+        if (team == unitTeam) return;
+        team = unitTeam;
+        SetColor();
     }
 
     void SpawnUnit()
     {
-        if (team == ETeam.None) return;
-
         Unit unit = Managers.Pool._UnitPool.Get();
         unit.team = team;
 

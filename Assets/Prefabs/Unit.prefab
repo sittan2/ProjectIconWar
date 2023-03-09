@@ -206,10 +206,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackSpeed: 1
-  _attackPower: 50
+  _attackPower: 40
   _attackRange: 0
-  _maxCoolTime: 2
-  _curCoolTime: 1
+  _maxCoolTime: 1
+  _curCoolTime: 0
 --- !u!50 &7056018592470028766
 Rigidbody2D:
   serializedVersion: 4
