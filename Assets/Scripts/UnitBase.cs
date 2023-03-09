@@ -60,7 +60,7 @@ public class UnitBase : MonoBehaviour
             {
                 if (unit.team == ETeam.Player)
                     playerCount += 1;
-                else if (unit.team == ETeam.Enemy)
+                else if (unit.team == ETeam.Enemy1)
                     enemyCount += 1;
             }
         }
@@ -72,7 +72,7 @@ public class UnitBase : MonoBehaviour
         }
         else if (enemyCount > 0 && playerCount == 0)
         {
-            team = ETeam.Enemy;
+            team = ETeam.Enemy1;
             SetColor();
         }
     }

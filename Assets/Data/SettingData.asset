@@ -12,6 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40ed2ac075fcbf4ab9f4fc70ecdda97, type: 3}
   m_Name: SettingData
   m_EditorClassIdentifier: 
-  noneColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
-  playerColor: {r: 1, g: 0.4198113, b: 0.4198113, a: 1}
-  enemyColor: {r: 0.41960788, g: 0.53048795, b: 1, a: 1}
+  TeamColors:
+  - _team: 0
+    _baseColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
+    _backColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
+    _backColor2: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
+  - _team: 1
+    _baseColor: {r: 1, g: 0.3915094, b: 0.3915094, a: 1}
+    _backColor: {r: 0.8301887, g: 0.27803493, b: 0.27803493, a: 1}
+    _backColor2: {r: 0.6509434, g: 0.25485048, b: 0.25485048, a: 1}
+  - _team: 2
+    _baseColor: {r: 0.39215684, g: 0.571737, b: 1, a: 1}
+    _backColor: {r: 0.27843136, g: 0.4380874, b: 0.83137256, a: 1}
+    _backColor2: {r: 0.2227216, g: 0.33626714, b: 0.6132076, a: 1}
+  - _team: 3
+    _baseColor: {r: 0.49897182, g: 1, b: 0.39215684, a: 1}
+    _backColor: {r: 0.39464235, g: 0.83137256, b: 0.27843136, a: 1}
+    _backColor2: {r: 0.338975, g: 0.6415094, b: 0.25720897, a: 1}
+  - _team: 4
+    _baseColor: {r: 0.9266537, g: 0.39215684, b: 1, a: 1}
+    _backColor: {r: 0.81787276, g: 0.27843136, b: 0.83137256, a: 1}
+    _backColor2: {r: 0.55870956, g: 0.22160912, b: 0.5660378, a: 1}

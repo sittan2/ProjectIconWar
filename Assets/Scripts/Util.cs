@@ -5,17 +5,11 @@ public class Util
 {
     public static Color GetColor(ETeam team)
     {
-        switch (team)
-        {
-            default:
-            case ETeam.None:
-                return Managers.Setting.noneColor;
+        return Managers.Setting.TeamColors.Find(x => x.Team == team).BaseColor;
+    }
 
-            case ETeam.Player:
-                return Managers.Setting.playerColor;
-
-            case ETeam.Enemy:
-                return Managers.Setting.enemyColor;
-        }
+    public static TeamColor GetTeamColor(ETeam team)
+    {
+        return Managers.Setting.TeamColors.Find(x => x.Team == team);
     }
 }
