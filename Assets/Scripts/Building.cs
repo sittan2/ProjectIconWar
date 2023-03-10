@@ -78,7 +78,9 @@ public class Building : Unit
         if (unitTeam == ETeam.None) return;
         if (team == unitTeam) return;
         team = unitTeam;
+
         SetColor();
+        SetSight();
     }
 
     void SpawnUnit()
