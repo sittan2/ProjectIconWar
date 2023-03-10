@@ -51,3 +51,6 @@ TagManager:
   - name: Unit
     uniqueID: 3922950525
     locked: 0
+  - name: Fog
+    uniqueID: 2345106335
+    locked: 0

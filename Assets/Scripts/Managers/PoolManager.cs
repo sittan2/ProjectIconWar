@@ -4,15 +4,15 @@ using UnityEngine.Pool;
 
 public class PoolManager
 {
-    public IObjectPool<Unit> _UnitPool;
+    public IObjectPool<Warrior> _UnitPool;
 
-    private const string unitPrefabPath = "Assets/Prefabs/Unit.prefab";
-    private Unit _UnitPrefab;
+    private const string unitPrefabPath = "Assets/Prefabs/Warrior.prefab";
+    private Warrior _UnitPrefab;
 
     public void Init()
     {
-        _UnitPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<Unit>(unitPrefabPath);
-        _UnitPool = new ObjectPool<Unit>(CreateUnit, OnGetUnit, OnReleaseUnit, OnDestroyUnit);
+        _UnitPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<Warrior>(unitPrefabPath);
+        _UnitPool = new ObjectPool<Warrior>(CreateUnit, OnGetUnit, OnReleaseUnit, OnDestroyUnit);
     }
 
     public void Clear()
@@ -20,24 +20,24 @@ public class PoolManager
         _UnitPool = null;
     }
 
-    private Unit CreateUnit()
+    private Warrior CreateUnit()
     {
-        Unit unit = MonoBehaviour.Instantiate(_UnitPrefab).GetComponent<Unit>();
+        Warrior unit = MonoBehaviour.Instantiate(_UnitPrefab).GetComponent<Warrior>();
         unit.SetManagedPool(_UnitPool);
         return unit;
     }
 
-    private void OnGetUnit(Unit unit)
+    private void OnGetUnit(Warrior unit)
     {
         unit.gameObject.SetActive(true);
     }
 
-    private void OnReleaseUnit(Unit unit)
+    private void OnReleaseUnit(Warrior unit)
     {
         unit.gameObject.SetActive(false);
     }
 
-    private void OnDestroyUnit(Unit unit)
+    private void OnDestroyUnit(Warrior unit)
     {
         MonoBehaviour.Destroy(unit.gameObject);
     }

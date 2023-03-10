@@ -6,7 +6,7 @@ public class GameManager
 {
     public class Stage
     {
-        public List<UnitBase> Bases = new List<UnitBase>();
+        public List<Building> Bases = new List<Building>();
         public List<Team> Teams = new List<Team>();
     }
 

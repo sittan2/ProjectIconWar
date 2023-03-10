@@ -4,28 +4,25 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class UnitBase : MonoBehaviour
+public class Building : Unit
 {
     public float _maxDegreeToCapture = 100f;
     public float _curDegreeToCapture = 0;
     public float _captureRange = 1f;
-    public List<Unit> _caputureUnits = new List<Unit>();
+    public List<Warrior> _caputureUnits = new List<Warrior>();
 
     public float _spawnTime = 4f;
     private float _restSpawnTime;
     public float _spawnBound = 1f;
 
     private SpriteRenderer spriteRenderer;
-    public ETeam team = ETeam.None;
 
-    private void Awake()
+    public override void Init()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetColor();
-    }
+        SetSight();
 
-    private void Start()
-    {
         SpawnUnit();
         SpawnUnit();
         SpawnUnit();
@@ -63,7 +60,7 @@ public class UnitBase : MonoBehaviour
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].CompareTag("Unit") &&
-                colliders[i].TryGetComponent(out Unit unit))
+                colliders[i].TryGetComponent(out Warrior unit))
             {
                 if (unitTeam == ETeam.None)
                 {
@@ -86,7 +83,7 @@ public class UnitBase : MonoBehaviour
 
     void SpawnUnit()
     {
-        Unit unit = Managers.Pool._UnitPool.Get();
+        Warrior unit = Managers.Pool._UnitPool.Get();
         unit.team = team;
 
         Vector2 spawnPosition = transform.position;
@@ -97,7 +94,7 @@ public class UnitBase : MonoBehaviour
         unit.Init();
     }
 
-    void SetColor()
+    protected override void SetColor()
     {
         spriteRenderer.color = Util.GetTeamColor(team).BackColor;
     }

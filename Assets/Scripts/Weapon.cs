@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    Unit _unit;
+    Warrior _unit;
 
     public float _attackSpeed = 1f;
     public float _attackPower;
@@ -13,18 +13,18 @@ public class Weapon : MonoBehaviour
     public float _maxCoolTime;
     public float _curCoolTime;
     
-    List<Unit> enemiesInRange = new List<Unit>();
+    List<Warrior> enemiesInRange = new List<Warrior>();
 
     private void Awake()
     {
-        _unit = GetComponentInParent<Unit>();
+        _unit = GetComponentInParent<Warrior>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Unit"))
         {
-            if (collision.TryGetComponent(out Unit otherUnit) && 
+            if (collision.TryGetComponent(out Warrior otherUnit) && 
                 IsOtherTeam(_unit.team, otherUnit.team))
             {
                 enemiesInRange.Add(otherUnit);
@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour
     {
         if (collision.CompareTag("Unit"))
         {
-            if (collision.TryGetComponent(out Unit otherUnit) &&
+            if (collision.TryGetComponent(out Warrior otherUnit) &&
                 enemiesInRange.Contains(otherUnit))
             {
                 enemiesInRange.Remove(otherUnit);
@@ -49,12 +49,12 @@ public class Weapon : MonoBehaviour
         CheckAttackable();
     }
 
-    private Unit FindClosestEnemy()
+    private Warrior FindClosestEnemy()
     {
-        Unit closestEnemy = null;
+        Warrior closestEnemy = null;
         float closestDistance = float.MaxValue;
 
-        foreach (Unit enemy in enemiesInRange)
+        foreach (Warrior enemy in enemiesInRange)
         {
             float distance = Vector3.Distance(transform.position, enemy.transform.position);
 
@@ -78,7 +78,7 @@ public class Weapon : MonoBehaviour
         {
             if (enemiesInRange.Count > 0)
             {
-                Unit closestEnemy = FindClosestEnemy();
+                Warrior closestEnemy = FindClosestEnemy();
 
                 if (closestEnemy != null)
                 {
@@ -88,7 +88,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void Attack(Unit enemy)
+    private void Attack(Warrior enemy)
     {
         _curCoolTime += _maxCoolTime;
         enemy.Hit(_attackPower);
