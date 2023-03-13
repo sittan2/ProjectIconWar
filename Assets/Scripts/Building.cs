@@ -11,6 +11,7 @@ public class Building : Unit
     public float _captureRange = 1f;
     public List<Warrior> _caputureUnits = new List<Warrior>();
 
+    [SerializeField] EUnitType _spawnUnitType = EUnitType.none;
     public float _spawnTime = 4f;
     private float _restSpawnTime;
     public float _spawnBound = 1f;
@@ -77,6 +78,8 @@ public class Building : Unit
 
         if (unitTeam == ETeam.None) return;
         if (team == unitTeam) return;
+
+        Debug.Log(name + " Tema : " + team + " -> " + unitTeam);
         team = unitTeam;
 
         SetColor();
@@ -85,7 +88,29 @@ public class Building : Unit
 
     void SpawnUnit()
     {
-        Warrior unit = Managers.Pool._UnitPool.Get();
+        Warrior unit;
+
+        switch (_spawnUnitType)
+        {
+            case EUnitType.none:
+            default:
+                unit = Managers.Pool._warriorPool.Get();
+                break;
+
+            case EUnitType.Warrior:
+                unit = Managers.Pool._warriorPool.Get();
+                break;
+            case EUnitType.Archer:
+                unit = Managers.Pool._archerPool.Get();
+                break;
+            case EUnitType.Shielder:
+                unit = Managers.Pool._shielderPool.Get();
+                break;
+            case EUnitType.Knight:
+                unit = Managers.Pool._knightPool.Get();
+                break;
+        }
+
         unit.team = team;
 
         Vector2 spawnPosition = transform.position;

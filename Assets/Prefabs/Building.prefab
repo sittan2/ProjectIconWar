@@ -104,6 +104,7 @@ MonoBehaviour:
   _curDegreeToCapture: 0
   _captureRange: 1
   _caputureUnits: []
+  _spawnUnitType: 1
   _spawnTime: 4
   _spawnBound: 1
 --- !u!1001 &5648758307784741028

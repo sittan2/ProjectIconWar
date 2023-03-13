@@ -6,7 +6,11 @@ using UnityEngine.Pool;
 
 public class Warrior : Unit
 {
+    [SerializeField] EUnitType unitType = EUnitType.none;
+
+    public static float SpwanTime = 2f;
     private IObjectPool<Warrior> _ManagedPool;
+
     SpriteRenderer spriteRenderer;
 
     public float _maxSpeed;
@@ -35,6 +39,7 @@ public class Warrior : Unit
         }
 
         Move();
+        Look();
     }
 
     void Move()
@@ -43,6 +48,17 @@ public class Warrior : Unit
         if (team != ETeam.Player) return;
 
         transform.position = Vector2.MoveTowards(transform.position, _moveTargetPosition, _curSpeed * Time.deltaTime);
+    }
+
+    void Look()
+    {
+        if (team != ETeam.Player) return;
+
+        Vector3 targetPos = _moveTargetPosition;
+        targetPos.z = transform.position.z;
+        Quaternion targetRot = Quaternion.Euler(targetPos - transform.position);
+
+        transform.rotation = targetRot;
     }
 
     public void Hit(float Damage)
@@ -60,10 +76,7 @@ public class Warrior : Unit
 
     public void DestroyUnit()
     {
-        if (_ManagedPool == null)
-            Destroy(gameObject);
-        else
-            _ManagedPool.Release(this);
+        _ManagedPool.Release(this);
     }
 
     protected override void SetColor()

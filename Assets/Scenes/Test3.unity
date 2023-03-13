@@ -766,6 +766,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6939737085909721885, guid: f61d602572412e5449ad4d4e9c4a9216, type: 3}
+      propertyPath: _spawnUnitType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7039514347786005172, guid: f61d602572412e5449ad4d4e9c4a9216, type: 3}
       propertyPath: team
       value: 1
@@ -883,7 +887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1099945598
 Transform:
   m_ObjectHideFlags: 0
@@ -1520,6 +1524,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6939737085909721885, guid: f61d602572412e5449ad4d4e9c4a9216, type: 3}
       propertyPath: team
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6939737085909721885, guid: f61d602572412e5449ad4d4e9c4a9216, type: 3}
+      propertyPath: _spawnUnitType
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7039514347786005172, guid: f61d602572412e5449ad4d4e9c4a9216, type: 3}
@@ -2316,6 +2324,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6939737085909721885, guid: f61d602572412e5449ad4d4e9c4a9216, type: 3}
       propertyPath: team
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6939737085909721885, guid: f61d602572412e5449ad4d4e9c4a9216, type: 3}
+      propertyPath: _spawnUnitType
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7039514347786005172, guid: f61d602572412e5449ad4d4e9c4a9216, type: 3}
